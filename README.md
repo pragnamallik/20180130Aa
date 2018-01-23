@@ -53,7 +53,7 @@ The html5 phonegap code includes the javascript `cordova.js` file, which will be
 To test this in a local environment:
 
 1. npm install -g browser-sync if you haven't already
-1. browser-sync start --server --files "./*"
+1. `browser-sync start --server --files "./*"`
 
 You can also get the phonegapready event by installing the ripple beta google chrome plugin.
 
