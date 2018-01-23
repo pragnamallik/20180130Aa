@@ -1,4 +1,4 @@
-# [hellophonegap](https://github.com/rhildred/hellophonegap)
+# <a href="https://github.com/rhildred/hellophonegap" target="_blank">hellophonegap</a>
 
 phonegap hello world. The config.xml sets the name and id:
 
