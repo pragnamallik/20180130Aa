@@ -50,4 +50,30 @@ The html5 phonegap code includes the javascript `cordova.js` file, which will be
 
 ```
 
+To test this in a local environment:
+
+1. npm install -g browser-sync if you haven't already
+1. browser-sync start --server --files "./*"
+
+You can also get the phonegapready event by installing the ripple beta google chrome plugin.
+
 This can be loaded up on phonegap build, and turned into a apk that can be put on your phone.
+To install this on phonegap build:
+
+1) sign up for an adobe account and log in to https://build.phonegap.com
+2) push this on to your own github
+3) create an app on phonegap build
+4) Click the `ready to build` button.
+5) Download the APK on to your local machine.
+6) Install [BlueStacks](https://www.bluestacks.com/download.html) if you haven't already.
+
+![telechargement](https://rhildred.github.io/hellophonegap/readmeimages/BlueStacksCapture.PNG "telechargement")
+
+7) Load the apk into BlueStacks
+
+![install apk](https://rhildred.github.io/hellophonegap/readmeimages/installApkCapture.PNG "install apk")
+
+8) Click on the app in your home screen
+
+!["spy in this case"](https://rhildred.github.io/hellophonegap/readmeimages/HomeScreenCapture.PNG "spy in this case")
+
