@@ -5,15 +5,45 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js">
         </script>
         <script src="cordova.js"></script>
+        <script src="js/uuid.js"></script>
         <script>
-            var phonegapReady = function(){
-            }
-
-            document.addEventListener("deviceready", phonegapReady, false);
             angular.module("TodoApp", []).controller("TodoCtrl", function ($scope, $http) {
                 //alert("In Angular");
+                $scope.todos=[];
+
+                var dbSize = 5 * 1024 * 1024; // 5MB
+                $scope.webdb = {};
+                // open database
+                var db  = openDatabase("Todo", "1", "Todo manager", dbSize);
+                
+                //create table to use
+                db.transaction(function (tx) {
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS " +
+                        "todo(ID TEXT PRIMARY KEY, todo TEXT, added_on DATETIME, finished_on DATETIME)", [],
+                        function () {
+                            console.log("success");
+                            //$scope.readTodos();
+                        },
+                        function () { console.log("failure") }
+                    );
+                });                
+
                 $scope.addTodo=function(){
-                    alert("In addTodo() with" + $scope.todoItem);
+                    //alert("In addTodo() with " + $scope.todoItem);
+                    $scope.todos.push({name:$scope.todoItem});
+                    db.transaction(function (tx) {
+                        var dToday = new Date();
+                        tx.executeSql("INSERT INTO todo(ID, todo, added_on) VALUES(?, ?, ?) ",
+                            [uuid.v4(), $scope.todoItem, dToday],
+                            function () {
+                                $scope.todoItem = "";
+                                //$scope.readTodos();
+                            },
+                            function () {
+                                console.log("failed");
+                            }
+                        );
+                    });
                 }
             });
 
@@ -23,6 +53,9 @@
         <h1>WebDb TodoList</h1>
         <p>This is a simple todolist. Type a task in the box below. Click on the plus button to add to the list</p>
         <form ng-app="TodoApp" ng-controller="TodoCtrl" ng-submit="addTodo()">
+            <div ng-repeat="todo in todos">
+                {{todo.name}}
+            </div>
             <input ng-model="todoItem"/>
             <button>+</button>
         </form>
