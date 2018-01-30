@@ -2,21 +2,29 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        <h1>hello phonegap from Rich Hildred</h1>
-        <h2> I can't believe it's this simple. ... </h2>
-        <div id="connectionStatus" style="color:blue">Not connected to phonegap!</div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js">
+        </script>
         <script src="cordova.js"></script>
         <script>
             var phonegapReady = function(){
-                oStatus = document.getElementById("connectionStatus");
-                oStatus.innerHTML = "Now connected to phonegap";
-                oStatus.style.color = "green";
             }
 
             document.addEventListener("deviceready", phonegapReady, false);
+            angular.module("TodoApp", []).controller("TodoCtrl", function ($scope, $http) {
+                //alert("In Angular");
+                $scope.addTodo=function(){
+                    alert("In addTodo() with" + $scope.todoItem);
+                }
+            });
 
         </script>
+    </head>
+    <body>
+        <h1>WebDb TodoList</h1>
+        <p>This is a simple todolist. Type a task in the box below. Click on the plus button to add to the list</p>
+        <form ng-app="TodoApp" ng-controller="TodoCtrl" ng-submit="addTodo()">
+            <input ng-model="todoItem"/>
+            <button>+</button>
+        </form>
     </body>
 </html>
